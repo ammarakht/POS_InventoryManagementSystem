@@ -43,6 +43,11 @@
   --radius-lg: 14px;
   --radius-xl: 20px;
   --radius-full: 9999px;
+
+  /* Viewport Height Calculations with Zoom */
+  --app-zoom: 0.85;
+  --full-vh: calc(100vh / var(--app-zoom));
+  --pos-h: calc(var(--full-vh) - 64px);
 }
 
 [data-theme='light'] {
@@ -90,8 +95,9 @@ html, body {
   font-family: var(--font-sans);
   background-color: var(--bg-app);
   color: var(--text-primary);
-  min-height: 100vh;
-  zoom: 0.85;
+  min-height: var(--full-vh);
+  height: var(--full-vh);
+  zoom: var(--app-zoom);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
@@ -99,7 +105,8 @@ html, body {
 /* App Layout */
 .app-container {
   display: flex;
-  min-height: 100vh;
+  min-height: var(--full-vh);
+  height: var(--full-vh);
   background-color: var(--bg-app);
 }
 
@@ -112,7 +119,7 @@ html, body {
   flex-direction: column;
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: var(--full-vh);
   z-index: 40;
   transition: all 0.25s ease;
 }
@@ -218,7 +225,7 @@ html, body {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  height: 100vh;
+  height: var(--full-vh);
   overflow-y: auto;
 }
 
@@ -372,7 +379,7 @@ html, body {
   grid-template-columns: minmax(0, 1fr) 380px;
   gap: 1.25rem;
   padding: 1.25rem;
-  height: calc(100vh - 64px);
+  height: var(--pos-h);
   min-width: 0;
   overflow: hidden;
 }
