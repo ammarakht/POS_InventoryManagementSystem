@@ -31,16 +31,17 @@ export default function CheckoutModal({
   const [customerPhone, setCustomerPhone] = useState('');
   const [discountPercent, setDiscountPercent] = useState(0);
 
-  const currency = settings?.currencySymbol || '$';
+  const currency = settings?.currencySymbol || 'PKR ';
 
-  // Quick cash tender options
+  // Quick cash tender options (calibrated for PKR note denominations: 50, 100, 500, 1000, 5000)
   const tenderOptions = [
     Math.ceil(total),
-    Math.ceil(total / 10) * 10,
-    Math.ceil(total / 20) * 20 || 20,
-    Math.ceil(total / 50) * 50 || 50,
-    100
-  ].filter((v, idx, arr) => v >= total && arr.indexOf(v) === idx).slice(0, 4);
+    Math.ceil(total / 50) * 50,
+    Math.ceil(total / 100) * 100,
+    Math.ceil(total / 500) * 500,
+    Math.ceil(total / 1000) * 1000,
+    5000
+  ].filter((v, idx, arr) => v >= total && arr.indexOf(v) === idx).slice(0, 5);
 
   useEffect(() => {
     if (isOpen) {

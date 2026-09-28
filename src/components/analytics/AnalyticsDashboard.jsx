@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 
 export default function AnalyticsDashboard({ products, transactions, categories, settings }) {
-  const currency = settings?.currencySymbol || '$';
+  const currency = settings?.currencySymbol || 'PKR ';
 
   // Metrics
   const totalRevenue = transactions.reduce((sum, tx) => sum + tx.total, 0);

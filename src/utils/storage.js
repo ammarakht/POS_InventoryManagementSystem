@@ -24,8 +24,8 @@ export const INITIAL_PRODUCTS = [
     sku: 'BEV-ORG-01',
     name: 'Organic Orange Juice 1L',
     category: 'beverages',
-    costPrice: 2.10,
-    price: 4.50,
+    costPrice: 450,
+    price: 650,
     stock: 48,
     minStock: 15,
     unit: 'Bottle',
@@ -40,8 +40,8 @@ export const INITIAL_PRODUCTS = [
     sku: 'BEV-OAT-02',
     name: 'Barista Oat Milk 1L',
     category: 'beverages',
-    costPrice: 1.80,
-    price: 3.99,
+    costPrice: 650,
+    price: 950,
     stock: 6,
     minStock: 12,
     unit: 'Carton',
@@ -56,8 +56,8 @@ export const INITIAL_PRODUCTS = [
     sku: 'BEV-COL-03',
     name: 'Sparkling Mineral Cola 330ml',
     category: 'beverages',
-    costPrice: 0.65,
-    price: 1.75,
+    costPrice: 120,
+    price: 180,
     stock: 120,
     minStock: 24,
     unit: 'Can',
@@ -72,8 +72,8 @@ export const INITIAL_PRODUCTS = [
     sku: 'SNK-CHS-04',
     name: 'Artisan Aged Cheddar Crisps 150g',
     category: 'groceries',
-    costPrice: 1.20,
-    price: 2.95,
+    costPrice: 280,
+    price: 420,
     stock: 35,
     minStock: 10,
     unit: 'Pack',
@@ -88,8 +88,8 @@ export const INITIAL_PRODUCTS = [
     sku: 'SNK-CHOC-05',
     name: 'Swiss Dark Chocolate 72% 100g',
     category: 'groceries',
-    costPrice: 1.60,
-    price: 3.80,
+    costPrice: 550,
+    price: 850,
     stock: 4,
     minStock: 10,
     unit: 'Bar',
@@ -104,8 +104,8 @@ export const INITIAL_PRODUCTS = [
     sku: 'ELE-WIR-06',
     name: 'Pro Wireless ANC Earbuds',
     category: 'electronics',
-    costPrice: 38.00,
-    price: 79.99,
+    costPrice: 8500,
+    price: 14500,
     stock: 18,
     minStock: 5,
     unit: 'Unit',
@@ -120,8 +120,8 @@ export const INITIAL_PRODUCTS = [
     sku: 'ELE-USBC-07',
     name: 'Braided Fast USB-C Cable 2M',
     category: 'electronics',
-    costPrice: 3.50,
-    price: 12.50,
+    costPrice: 650,
+    price: 1200,
     stock: 65,
     minStock: 20,
     unit: 'Unit',
@@ -136,8 +136,8 @@ export const INITIAL_PRODUCTS = [
     sku: 'ELE-MAG-08',
     name: 'Magnetic Qi2 Wireless Charger Stand',
     category: 'electronics',
-    costPrice: 14.20,
-    price: 34.00,
+    costPrice: 3200,
+    price: 5800,
     stock: 2,
     minStock: 8,
     unit: 'Unit',
@@ -152,8 +152,8 @@ export const INITIAL_PRODUCTS = [
     sku: 'PC-HYD-09',
     name: 'Hydrating Botanical Face Mist 120ml',
     category: 'personal_care',
-    costPrice: 4.80,
-    price: 14.50,
+    costPrice: 950,
+    price: 1650,
     stock: 22,
     minStock: 8,
     unit: 'Bottle',
@@ -168,8 +168,8 @@ export const INITIAL_PRODUCTS = [
     sku: 'PC-SHP-10',
     name: 'Nourishing Argan Oil Shampoo 400ml',
     category: 'personal_care',
-    costPrice: 3.90,
-    price: 10.90,
+    costPrice: 850,
+    price: 1450,
     stock: 31,
     minStock: 10,
     unit: 'Bottle',
@@ -184,8 +184,8 @@ export const INITIAL_PRODUCTS = [
     sku: 'OFF-NBK-11',
     name: 'Hardcover Dot-Grid Journal A5',
     category: 'stationery',
-    costPrice: 4.00,
-    price: 11.50,
+    costPrice: 800,
+    price: 1400,
     stock: 45,
     minStock: 12,
     unit: 'Book',
@@ -200,8 +200,8 @@ export const INITIAL_PRODUCTS = [
     sku: 'OFF-GEL-12',
     name: 'Precision Gel Pen 0.5mm Pack of 4',
     category: 'stationery',
-    costPrice: 2.20,
-    price: 6.99,
+    costPrice: 350,
+    price: 600,
     stock: 58,
     minStock: 15,
     unit: 'Pack',
@@ -216,8 +216,8 @@ export const INITIAL_PRODUCTS = [
     sku: 'APP-TEE-13',
     name: 'Heavyweight Cotton Tee - Black (L)',
     category: 'apparel',
-    costPrice: 8.50,
-    price: 24.00,
+    costPrice: 1800,
+    price: 3200,
     stock: 14,
     minStock: 6,
     unit: 'Piece',
@@ -232,8 +232,8 @@ export const INITIAL_PRODUCTS = [
     sku: 'APP-CAP-14',
     name: 'Minimalist Embroidered Dad Cap',
     category: 'apparel',
-    costPrice: 5.00,
-    price: 18.00,
+    costPrice: 1200,
+    price: 2200,
     stock: 0,
     minStock: 5,
     unit: 'Piece',
@@ -247,10 +247,10 @@ export const INITIAL_PRODUCTS = [
 export const DEFAULT_SETTINGS = {
   storeName: 'APEX RETAIL & PROVISIONS',
   storeAddress: '742 Evergreen Terrace, Suite 100',
-  storePhone: '+1 (555) 839-2041',
+  storePhone: '+92 (300) 839-2041',
   storeEmail: 'contact@apexretail.io',
-  taxId: 'TAX-US-992014',
-  currencySymbol: '$',
+  taxId: 'NTN-PK-992014',
+  currencySymbol: 'PKR ',
   defaultTaxRate: 8.0,
   enableSound: true,
   receiptHeader: 'Thank you for shopping with us!',
@@ -268,19 +268,19 @@ export const INITIAL_TRANSACTIONS = [
     timestamp: new Date(Date.now() - 3600000 * 4).toISOString(),
     cashier: 'Alex Mercer',
     customerName: 'Sarah Connor',
-    customerPhone: '+1 555-0192',
+    customerPhone: '+92 300 555-0192',
     items: [
-      { id: 'prod-001', barcode: '8901030383842', name: 'Organic Orange Juice 1L', price: 4.50, quantity: 2, subtotal: 9.00 },
-      { id: 'prod-004', barcode: '028400070560', name: 'Artisan Aged Cheddar Crisps 150g', price: 2.95, quantity: 1, subtotal: 2.95 }
+      { id: 'prod-001', barcode: '8901030383842', name: 'Organic Orange Juice 1L', price: 650, quantity: 2, subtotal: 1300 },
+      { id: 'prod-004', barcode: '028400070560', name: 'Artisan Aged Cheddar Crisps 150g', price: 420, quantity: 1, subtotal: 420 }
     ],
-    subtotal: 11.95,
+    subtotal: 1720,
     discountAmount: 0,
     taxRate: 5,
-    taxAmount: 0.60,
-    total: 12.55,
-    paymentMethod: 'Card',
-    amountPaid: 12.55,
-    changeDue: 0,
+    taxAmount: 86,
+    total: 1806,
+    paymentMethod: 'Cash',
+    amountPaid: 2000,
+    changeDue: 194,
     status: 'COMPLETED'
   },
   {
@@ -290,17 +290,17 @@ export const INITIAL_TRANSACTIONS = [
     customerName: 'Walk-in Customer',
     customerPhone: '',
     items: [
-      { id: 'prod-006', barcode: '194252056821', name: 'Pro Wireless ANC Earbuds', price: 79.99, quantity: 1, subtotal: 79.99 },
-      { id: 'prod-007', barcode: '840130002100', name: 'Braided Fast USB-C Cable 2M', price: 12.50, quantity: 1, subtotal: 12.50 }
+      { id: 'prod-006', barcode: '194252056821', name: 'Pro Wireless ANC Earbuds', price: 14500, quantity: 1, subtotal: 14500 },
+      { id: 'prod-007', barcode: '840130002100', name: 'Braided Fast USB-C Cable 2M', price: 1200, quantity: 1, subtotal: 1200 }
     ],
-    subtotal: 92.49,
-    discountAmount: 5.00,
+    subtotal: 15700,
+    discountAmount: 700,
     taxRate: 12,
-    taxAmount: 10.50,
-    total: 97.99,
+    taxAmount: 1800,
+    total: 16800,
     paymentMethod: 'Cash',
-    amountPaid: 100.00,
-    changeDue: 2.01,
+    amountPaid: 17000,
+    changeDue: 200,
     status: 'COMPLETED'
   }
 ];
@@ -314,7 +314,18 @@ export const storage = {
         localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(INITIAL_PRODUCTS));
         return INITIAL_PRODUCTS;
       }
-      return JSON.parse(data);
+      const parsed = JSON.parse(data);
+      // Auto-migrate old low-value dollar items to PKR if detected
+      if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].price < 50) {
+        const migrated = parsed.map(item => ({
+          ...item,
+          price: Math.round(item.price * 250),
+          costPrice: Math.round(item.costPrice * 250)
+        }));
+        localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(migrated));
+        return migrated;
+      }
+      return parsed;
     } catch {
       return INITIAL_PRODUCTS;
     }
@@ -335,7 +346,12 @@ export const storage = {
         localStorage.setItem(STORAGE_KEYS.TRANSACTIONS, JSON.stringify(INITIAL_TRANSACTIONS));
         return INITIAL_TRANSACTIONS;
       }
-      return JSON.parse(data);
+      const parsed = JSON.parse(data);
+      if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].total < 50) {
+        localStorage.setItem(STORAGE_KEYS.TRANSACTIONS, JSON.stringify(INITIAL_TRANSACTIONS));
+        return INITIAL_TRANSACTIONS;
+      }
+      return parsed;
     } catch {
       return INITIAL_TRANSACTIONS;
     }
@@ -356,7 +372,13 @@ export const storage = {
         localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(DEFAULT_SETTINGS));
         return DEFAULT_SETTINGS;
       }
-      return { ...DEFAULT_SETTINGS, ...JSON.parse(data) };
+      const parsed = JSON.parse(data);
+      // Auto-migrate default currency to PKR if stored as '$'
+      if (!parsed.currencySymbol || parsed.currencySymbol === '$') {
+        parsed.currencySymbol = 'PKR ';
+        localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify({ ...DEFAULT_SETTINGS, ...parsed }));
+      }
+      return { ...DEFAULT_SETTINGS, ...parsed };
     } catch {
       return DEFAULT_SETTINGS;
     }

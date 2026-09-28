@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Check, Barcode, Wand2, Package, Tag, DollarSign, Image } from 'lucide-react';
 import { sounds } from '../../utils/sound';
 
-export default function ProductModal({ isOpen, onClose, productToEdit, categories, onSaveProduct, currency = '$' }) {
+export default function ProductModal({ isOpen, onClose, productToEdit, categories, onSaveProduct, currency = 'PKR ' }) {
   const [formData, setFormData] = useState({
     name: '',
     barcode: '',
@@ -31,8 +31,8 @@ export default function ProductModal({ isOpen, onClose, productToEdit, categorie
         barcode: randomBarcode,
         sku: randomSku,
         category: categories[1]?.id || 'groceries',
-        costPrice: 5.00,
-        price: 9.99,
+        costPrice: 500,
+        price: 850,
         stock: 25,
         minStock: 5,
         unit: 'Unit',

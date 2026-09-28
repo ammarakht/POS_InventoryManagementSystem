@@ -6,7 +6,7 @@ export default function ReceiptModal({ isOpen, onClose, transaction, settings, o
 
   if (!isOpen || !transaction) return null;
 
-  const currency = settings?.currencySymbol || '$';
+  const currency = settings?.currencySymbol || 'PKR ';
   const paperWidth = settings?.paperWidth || '80mm';
 
   const handlePrint = () => {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { X, ArrowUpRight, ArrowDownRight, Check, AlertCircle } from 'lucide-react';
 import { sounds } from '../../utils/sound';
 
-export default function StockAdjustmentModal({ isOpen, onClose, product, onAdjustStock, currency = '$' }) {
+export default function StockAdjustmentModal({ isOpen, onClose, product, onAdjustStock, currency = 'PKR ' }) {
   const [adjustmentType, setAdjustmentType] = useState('add'); // 'add' or 'remove' or 'set'
   const [quantity, setQuantity] = useState(10);
   const [reason, setReason] = useState('Restock / Supplier Delivery');

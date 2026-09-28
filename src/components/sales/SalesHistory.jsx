@@ -23,7 +23,7 @@ export default function SalesHistory({ transactions, settings }) {
   const [isReceiptOpen, setIsReceiptOpen] = useState(false);
   const [expandedTxId, setExpandedTxId] = useState(null);
 
-  const currency = settings?.currencySymbol || '$';
+  const currency = settings?.currencySymbol || 'PKR ';
 
   const filteredTransactions = transactions.filter((tx) => {
     const matchesPayment = paymentFilter === 'all' || tx.paymentMethod === paymentFilter;

@@ -164,9 +164,11 @@ export default function SettingsView({ settings, onSaveSettings, onResetAll }) {
               <label className="form-label">Currency Symbol</label>
               <select
                 className="form-select"
-                value={formData.currencySymbol || '$'}
+                value={formData.currencySymbol || 'PKR '}
                 onChange={(e) => setFormData({ ...formData, currencySymbol: e.target.value })}
               >
+                <option value="PKR ">PKR (Pakistani Rupee - PKR)</option>
+                <option value="Rs. ">Rs. (Pakistani Rupee - Rs.)</option>
                 <option value="$">$ (USD / AUD / CAD)</option>
                 <option value="₹">₹ (INR)</option>
                 <option value="€">€ (EUR)</option>

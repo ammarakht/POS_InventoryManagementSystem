@@ -157,7 +157,7 @@ export default function App() {
           productToEdit={null}
           categories={categories}
           onSaveProduct={handleSaveProduct}
-          currency={settings?.currencySymbol || '$'}
+          currency={settings?.currencySymbol || 'PKR '}
         />
       </div>
     </div>
