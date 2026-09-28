@@ -68,6 +68,24 @@ export default function App() {
     storage.saveTransactions(updated);
   };
 
+  const handleDeleteTransaction = (txId) => {
+    const updated = transactions.filter(t => t.id !== txId);
+    setTransactions(updated);
+    storage.saveTransactions(updated);
+  };
+
+  const handleClearTransactions = () => {
+    setTransactions([]);
+    storage.saveTransactions([]);
+  };
+
+  const handleDeleteMultipleProducts = (productIds) => {
+    const idSet = new Set(productIds);
+    const updated = products.filter(p => !idSet.has(p.id));
+    setProducts(updated);
+    storage.saveProducts(updated);
+  };
+
   // Settings Actions
   const handleSaveSettings = (newSettings) => {
     setSettings(newSettings);
@@ -122,6 +140,7 @@ export default function App() {
             settings={settings}
             onSaveProduct={handleSaveProduct}
             onDeleteProduct={handleDeleteProduct}
+            onDeleteMultipleProducts={handleDeleteMultipleProducts}
             onAdjustStock={handleAdjustStock}
           />
         )}
@@ -130,6 +149,8 @@ export default function App() {
           <SalesHistory
             transactions={transactions}
             settings={settings}
+            onDeleteTransaction={handleDeleteTransaction}
+            onClearTransactions={handleClearTransactions}
           />
         )}
 
@@ -157,6 +178,7 @@ export default function App() {
           productToEdit={null}
           categories={categories}
           onSaveProduct={handleSaveProduct}
+          onDeleteProduct={handleDeleteProduct}
           currency={settings?.currencySymbol || 'PKR '}
         />
       </div>

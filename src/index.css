@@ -1005,12 +1005,35 @@ html, body {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   box-shadow: var(--shadow-md);
+  width: 100%;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.data-table-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.data-table-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+.data-table-container::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.45);
+  border-radius: 4px;
+}
+
+.data-table-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.75);
 }
 
 .data-table {
   width: 100%;
+  min-width: 1020px;
   border-collapse: collapse;
   text-align: left;
   font-size: 0.875rem;
@@ -1022,6 +1045,7 @@ html, body {
   font-weight: 600;
   color: var(--text-secondary);
   border-bottom: 1px solid var(--border-subtle);
+  white-space: nowrap;
 }
 
 .data-table td {
@@ -1032,6 +1056,35 @@ html, body {
 
 .data-table tr:hover td {
   background: var(--bg-card-hover);
+}
+
+.table-action-btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--color-danger);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.table-action-btn-danger:hover {
+  background: var(--color-danger);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.35);
+}
+
+.table-select-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent-primary);
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 /* Status Badges */

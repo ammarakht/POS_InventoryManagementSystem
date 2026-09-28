@@ -24,11 +24,13 @@ export default function InventoryList({
   settings, 
   onSaveProduct, 
   onDeleteProduct, 
+  onDeleteMultipleProducts,
   onAdjustStock 
 }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [stockStatusFilter, setStockStatusFilter] = useState('all'); // 'all', 'low', 'out'
+  const [selectedIds, setSelectedIds] = useState(new Set());
   const [productToEdit, setProductToEdit] = useState(null);
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [productToAdjust, setProductToAdjust] = useState(null);
@@ -210,11 +212,89 @@ export default function InventoryList({
         </div>
       </div>
 
-      {/* Inventory Data Table */}
+      {/* Bulk Selection Actions Bar */}
+      {selectedIds.size > 0 && (
+        <div style={{
+          background: 'rgba(239, 68, 68, 0.12)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          borderRadius: 'var(--radius-lg)',
+          padding: '0.75rem 1.25rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          animation: 'fadeIn 0.2s ease',
+          boxShadow: 'var(--shadow-sm)'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+            <span style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--color-danger)' }}>
+              {selectedIds.size} product{selectedIds.size > 1 ? 's' : ''} selected
+            </span>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+              ({((selectedIds.size / filteredProducts.length) * 100).toFixed(0)}% of current view)
+            </span>
+          </div>
+          <div style={{ display: 'flex', gap: '0.6rem' }}>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              style={{ padding: '0.35rem 0.8rem', fontSize: '0.8rem' }}
+              onClick={() => setSelectedIds(new Set())}
+            >
+              Clear Selection
+            </button>
+            <button
+              type="button"
+              className="btn"
+              style={{
+                background: 'var(--color-danger)',
+                color: '#ffffff',
+                padding: '0.4rem 0.95rem',
+                fontSize: '0.8rem',
+                fontWeight: 600,
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+                borderRadius: 'var(--radius-md)'
+              }}
+              onClick={() => {
+                if (window.confirm(`Are you sure you want to permanently delete the ${selectedIds.size} selected products?`)) {
+                  sounds.playClick();
+                  if (onDeleteMultipleProducts) {
+                    onDeleteMultipleProducts(Array.from(selectedIds));
+                  } else {
+                    selectedIds.forEach(id => onDeleteProduct(id));
+                  }
+                  setSelectedIds(new Set());
+                }
+              }}
+            >
+              <Trash2 size={15} />
+              <span>Delete Selected ({selectedIds.size})</span>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Inventory Data Table (Horizontally Scrollable) */}
       <div className="data-table-container">
         <table className="data-table">
           <thead>
             <tr>
+              <th style={{ width: '40px', padding: '0.85rem 0.75rem' }}>
+                <input
+                  type="checkbox"
+                  className="table-select-checkbox"
+                  checked={filteredProducts.length > 0 && selectedIds.size === filteredProducts.length}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setSelectedIds(new Set(filteredProducts.map(p => p.id)));
+                    } else {
+                      setSelectedIds(new Set());
+                    }
+                  }}
+                  title="Select all products"
+                />
+              </th>
               <th>Product</th>
               <th>SKU &amp; Barcode</th>
               <th>Category</th>
@@ -222,13 +302,13 @@ export default function InventoryList({
               <th>Selling Price</th>
               <th>Stock Level</th>
               <th>Status</th>
-              <th style={{ textAlign: 'right' }}>Actions</th>
+              <th style={{ textAlign: 'right', minWidth: '175px' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {filteredProducts.length === 0 ? (
               <tr>
-                <td colSpan="8" style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>
+                <td colSpan="9" style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>
                   <Package size={36} style={{ margin: '0 auto 0.5rem', opacity: 0.5 }} />
                   <div>No inventory items match your search filters.</div>
                 </td>
@@ -237,9 +317,25 @@ export default function InventoryList({
               filteredProducts.map((prod) => {
                 const isOutOfStock = prod.stock <= 0;
                 const isLowStock = prod.stock > 0 && prod.stock <= prod.minStock;
+                const isSelected = selectedIds.has(prod.id);
 
                 return (
-                  <tr key={prod.id}>
+                  <tr key={prod.id} style={{ background: isSelected ? 'rgba(99, 102, 241, 0.08)' : undefined }}>
+                    <td style={{ width: '40px', padding: '0.9rem 0.75rem' }}>
+                      <input
+                        type="checkbox"
+                        className="table-select-checkbox"
+                        checked={isSelected}
+                        onChange={() => {
+                          const next = new Set(selectedIds);
+                          if (next.has(prod.id)) next.delete(prod.id);
+                          else next.add(prod.id);
+                          setSelectedIds(next);
+                        }}
+                        title={`Select ${prod.name}`}
+                      />
+                    </td>
+
                     <td>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                         <img 
@@ -304,25 +400,25 @@ export default function InventoryList({
                       )}
                     </td>
 
-                    <td style={{ textAlign: 'right' }}>
-                      <div style={{ display: 'inline-flex', gap: '0.4rem' }}>
+                    <td style={{ textAlign: 'right', minWidth: '175px', whiteSpace: 'nowrap' }}>
+                      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', justifyContent: 'flex-end' }}>
                         <button
                           type="button"
                           className="btn btn-secondary"
-                          style={{ padding: '0.35rem 0.6rem', fontSize: '0.75rem' }}
+                          style={{ padding: '0.35rem 0.65rem', fontSize: '0.75rem', gap: '0.3rem' }}
                           onClick={() => {
                             setProductToAdjust(prod);
                             setIsAdjustModalOpen(true);
                           }}
                           title="Restock or Adjust Inventory"
                         >
-                          <ArrowUpDown size={14} />
+                          <ArrowUpDown size={13} />
                           <span>Adjust</span>
                         </button>
                         <button
                           type="button"
                           className="btn-icon"
-                          style={{ padding: '0.35rem' }}
+                          style={{ padding: '0.4rem', borderRadius: 'var(--radius-md)', background: 'var(--bg-card-hover)' }}
                           onClick={() => {
                             setProductToEdit(prod);
                             setIsProductModalOpen(true);
@@ -333,15 +429,14 @@ export default function InventoryList({
                         </button>
                         <button
                           type="button"
-                          className="btn-icon"
-                          style={{ padding: '0.35rem', color: 'var(--color-danger)' }}
+                          className="table-action-btn-danger"
                           onClick={() => {
-                            if (window.confirm(`Are you sure you want to delete "${prod.name}"?`)) {
+                            if (window.confirm(`Are you sure you want to permanently delete "${prod.name}"?`)) {
                               sounds.playClick();
                               onDeleteProduct(prod.id);
                             }
                           }}
-                          title="Delete product"
+                          title={`Delete ${prod.name}`}
                         >
                           <Trash2 size={14} />
                         </button>

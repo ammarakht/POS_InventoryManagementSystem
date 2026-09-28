@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { X, Check, Barcode, Wand2, Package, Tag, DollarSign, Image } from 'lucide-react';
+import { X, Check, Barcode, Wand2, Package, Tag, DollarSign, Image, Trash2 } from 'lucide-react';
 import { sounds } from '../../utils/sound';
 
-export default function ProductModal({ isOpen, onClose, productToEdit, categories, onSaveProduct, currency = 'PKR ' }) {
+export default function ProductModal({ isOpen, onClose, productToEdit, categories, onSaveProduct, onDeleteProduct, currency = 'PKR ' }) {
   const [formData, setFormData] = useState({
     name: '',
     barcode: '',
@@ -281,14 +281,47 @@ export default function ProductModal({ isOpen, onClose, productToEdit, categorie
             </div>
           </div>
 
-          <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" onClick={onClose}>
-              Cancel
-            </button>
-            <button type="submit" className="btn btn-primary">
-              <Check size={16} />
-              <span>{productToEdit ? 'Save Changes' : 'Create Product'}</span>
-            </button>
+          <div className="modal-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              {productToEdit && onDeleteProduct && (
+                <button
+                  type="button"
+                  className="btn"
+                  style={{
+                    background: 'rgba(239, 68, 68, 0.12)',
+                    color: 'var(--color-danger)',
+                    border: '1px solid rgba(239, 68, 68, 0.3)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.4rem',
+                    padding: '0.5rem 0.9rem',
+                    fontSize: '0.85rem',
+                    fontWeight: 600,
+                    borderRadius: 'var(--radius-md)'
+                  }}
+                  onClick={() => {
+                    if (window.confirm(`Are you sure you want to permanently delete "${productToEdit.name}"?`)) {
+                      sounds.playClick();
+                      onDeleteProduct(productToEdit.id);
+                      onClose();
+                    }
+                  }}
+                >
+                  <Trash2 size={16} />
+                  <span>Delete Product</span>
+                </button>
+              )}
+            </div>
+
+            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+              <button type="button" className="btn btn-secondary" onClick={onClose}>
+                Cancel
+              </button>
+              <button type="submit" className="btn btn-primary">
+                <Check size={16} />
+                <span>{productToEdit ? 'Save Changes' : 'Create Product'}</span>
+              </button>
+            </div>
           </div>
         </form>
       </div>

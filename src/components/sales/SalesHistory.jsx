@@ -4,6 +4,7 @@ import {
   Search, 
   Printer, 
   Download, 
+  Trash2,
   Calendar, 
   User, 
   CreditCard, 
@@ -16,7 +17,12 @@ import {
 import ReceiptModal from '../pos/ReceiptModal';
 import { sounds } from '../../utils/sound';
 
-export default function SalesHistory({ transactions, settings }) {
+export default function SalesHistory({ 
+  transactions, 
+  settings, 
+  onDeleteTransaction, 
+  onClearTransactions 
+}) {
   const [searchQuery, setSearchQuery] = useState('');
   const [paymentFilter, setPaymentFilter] = useState('all');
   const [selectedTx, setSelectedTx] = useState(null);
@@ -138,11 +144,30 @@ export default function SalesHistory({ transactions, settings }) {
           ))}
         </div>
 
-        {/* Export Action */}
-        <button className="btn btn-secondary" onClick={handleExportCSV}>
-          <Download size={16} />
-          <span>Export Invoices</span>
-        </button>
+        {/* Export & Actions */}
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <button className="btn btn-secondary" onClick={handleExportCSV}>
+            <Download size={16} />
+            <span>Export Invoices</span>
+          </button>
+          {transactions.length > 0 && onClearTransactions && (
+            <button 
+              type="button"
+              className="btn btn-secondary" 
+              style={{ borderColor: 'rgba(239, 68, 68, 0.4)', color: '#ef4444' }}
+              onClick={() => {
+                if (window.confirm('Are you sure you want to permanently clear ALL sales history and completed invoices? This cannot be undone.')) {
+                  sounds.playClick();
+                  onClearTransactions();
+                }
+              }}
+              title="Clear all completed sales history"
+            >
+              <Trash2 size={16} />
+              <span>Clear History</span>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Transactions Table */}
@@ -156,7 +181,7 @@ export default function SalesHistory({ transactions, settings }) {
               <th>Items</th>
               <th>Payment</th>
               <th>Total Amount</th>
-              <th style={{ textAlign: 'right' }}>Actions</th>
+              <th style={{ textAlign: 'right', minWidth: '175px' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -221,16 +246,34 @@ export default function SalesHistory({ transactions, settings }) {
                         {currency}{tx.total.toFixed(2)}
                       </td>
 
-                      <td style={{ textAlign: 'right' }}>
-                        <button
-                          type="button"
-                          className="btn btn-secondary"
-                          style={{ padding: '0.35rem 0.75rem', fontSize: '0.8rem' }}
-                          onClick={() => handleReprint(tx)}
-                        >
-                          <Printer size={14} />
-                          <span>Receipt</span>
-                        </button>
+                      <td style={{ textAlign: 'right', minWidth: '175px', whiteSpace: 'nowrap' }}>
+                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', justifyContent: 'flex-end' }}>
+                          <button
+                            type="button"
+                            className="btn btn-secondary"
+                            style={{ padding: '0.35rem 0.65rem', fontSize: '0.8rem', gap: '0.3rem' }}
+                            onClick={() => handleReprint(tx)}
+                            title="View & Print Receipt"
+                          >
+                            <Printer size={13} />
+                            <span>Receipt</span>
+                          </button>
+                          {onDeleteTransaction && (
+                            <button
+                              type="button"
+                              className="table-action-btn-danger"
+                              onClick={() => {
+                                if (window.confirm(`Are you sure you want to delete invoice ${tx.id}? This cannot be undone.`)) {
+                                  sounds.playClick();
+                                  onDeleteTransaction(tx.id);
+                                }
+                              }}
+                              title="Delete this invoice"
+                            >
+                              <Trash2 size={14} />
+                            </button>
+                          )}
+                        </div>
                       </td>
                     </tr>
 
