@@ -91,6 +91,7 @@ html, body {
   background-color: var(--bg-app);
   color: var(--text-primary);
   min-height: 100vh;
+  zoom: 0.85;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
@@ -368,10 +369,11 @@ html, body {
 /* POS Terminal Layout */
 .pos-container {
   display: grid;
-  grid-template-columns: 1fr 420px;
+  grid-template-columns: minmax(0, 1fr) 380px;
   gap: 1.25rem;
   padding: 1.25rem;
   height: calc(100vh - 64px);
+  min-width: 0;
   overflow: hidden;
 }
 
@@ -381,6 +383,7 @@ html, body {
   gap: 1rem;
   height: 100%;
   min-height: 0;
+  min-width: 0;
 }
 
 /* Barcode Quick Action Bar */
@@ -615,6 +618,7 @@ html, body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-width: 0;
   box-shadow: var(--shadow-lg);
   overflow: hidden;
 }
@@ -1186,9 +1190,9 @@ html, body {
 }
 
 /* Responsive */
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
   .pos-container {
-    grid-template-columns: 1fr 360px;
+    grid-template-columns: minmax(0, 1fr) 340px;
   }
 }
 
